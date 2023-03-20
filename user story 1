@@ -1,0 +1,9 @@
+Worst Case Scenario: Nothing Loads
+
+I searched for the V-Pet cafe in my browser to enter the app. I’m looking at a login / sign in page. 
+I think I have a username so I enter my email and password, but then it says the user is not recognized. 
+My email is not registered, so it tells me I don’t have an account yet. I fill my name, email, date of birth, 
+or I use the OAuth to sign up and create my account. Then I click “continue”, to enter the app. 
+There is a loading bar, I wait for 5 minutes, then my browser tells me I failed to connect. 
+I tried a couple more times, but I still get the same issues. 
+I give up, and stop trying to enter the app and make an account.
