@@ -1,11 +1,12 @@
+// Create a function to add numbers from 1 to 10
 <script>
-  import Start from './components/StartPage.vue'
-  import Playground from './components/PlayGround.vue'
+	import Start from './components/StartPage.vue'
+	import Playground from './components/PlayGround.vue'
 
-  const routes = {
-    '/': Start,
-    '/main': Playground,
-  }
+	const routes = {
+		'/': Start,
+		'/main': Playground
+	}
 
   export default {
     data() {
