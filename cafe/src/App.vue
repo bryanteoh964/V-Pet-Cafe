@@ -1,3 +1,4 @@
+// Create a function to add numbers from 1 to 10
 <script>
   export default {
     data() {
