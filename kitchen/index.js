@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 })
 
 app.use(dbPath, tempRouter)
-// app.use(spotPath, tempRouter2)
+app.use(spotPath, tempRouter2)
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`)

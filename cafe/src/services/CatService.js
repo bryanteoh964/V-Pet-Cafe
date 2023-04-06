@@ -1,6 +1,5 @@
-import axios from "axios";
-const apiUrl = "http://localhost:3000/temp/";
-
+import axios from 'axios';
+const apiUrl = 'http://localhost:3000/temp/';
 
 class CatService {
     static getCats() {

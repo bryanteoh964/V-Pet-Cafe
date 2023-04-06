@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 require('dotenv').config();
 
 const DB_PASS = process.env.DB_PASS;
@@ -11,9 +11,9 @@ const connectDB = async () => {
     await mongoose.connect(mongoDB, { 
       useNewUrlParser: true
     });
-    console.log("Connected to DB");
+    console.log('Connected to DB');
   } catch (err) {
-    console.log("Error connecting to DB", err);
+    console.log('Error connecting to DB', err);
   }
 }
 
