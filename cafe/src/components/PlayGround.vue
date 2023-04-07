@@ -80,7 +80,7 @@
 </template>
 
 <style>
-    body {
+    #playground {
       background-image: url("../assets/Petcafe.svg");
       margin: 0;
       top: 100px;
@@ -96,12 +96,12 @@
       padding: 0;
       height: 70px;
     }
-    #playground {
+    /* #playground {
         height: 500px;
         width: 500px;
         outline: 0px solid black;
         position: relative;
-    }
+    } */
     .pet {
         height: 150px;
         width: 150px;

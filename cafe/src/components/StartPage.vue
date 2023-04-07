@@ -9,7 +9,12 @@
 <template>
   <div class="start_page">
     <h1>Welcome to the V-Pet Cafe!</h1><br>
-    <a href="#/main" class="button">Login</a>
+    <div>
+      <router-link to="/login" class="button">Login</router-link>
+      <router-link to="/main" class="button">Playground</router-link>
+      <router-link to="/dbtest" class="button">DbTest</router-link>
+      <router-link to="/spottest" class="button">SpotTest</router-link>
+    </div>
   </div>
 </template>
 
