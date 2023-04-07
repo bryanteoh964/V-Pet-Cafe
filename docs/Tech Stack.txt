@@ -1,0 +1,9 @@
+For our virtual pet cafe website project, we had to choose a technology stack that could handle the frontend and backend features, integrate Spotify music, and store the cat's stats and info in a database.
+
+After a lot of research and brainstorming, we decided to go with Node.js and the Express.js framework for the backend server, and MongoDB as the database. We also chose vite/vue for the frontend and Axios for sending API requests. And, of course, we used JavaScript for the programming language, and npm to manage our dependencies.
+
+Why we chose this stack: Node.js is super efficient at handling real-time applications, which is perfect for our project. And Express.js made building APIs super easy with its routing and middleware features. MongoDB also worked great because it allowed us to store JSON-like documents for the cat's stats and info.
+
+Plus, Spotify API was awesome for integrating music into the app, and Spotify OAuthentication made sure users could access their accounts safely. And vite/vue was just so simple to use for building the modern, reactive frontend we wanted.
+
+Overall, we're really happy with our technology stack choice, and we're excited to see what we can create with it.
