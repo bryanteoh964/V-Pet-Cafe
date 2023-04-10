@@ -76,3 +76,6 @@ router.get('/getUser/:user/:auth', jsonParser, (req, res) => {
 })
 
 module.exports = router;
+
+
+
