@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
-const tempRouter = require("./routes/temp")
-const tempRouter2 = require("./routes/temp2")
+const catRouter = require("./routes/catstat")
+const spotRouter = require("./routes/spot")
 const catTalkRouter = require("./routes/cattalk")
 const connectDB = require('./db')
 
@@ -9,7 +9,7 @@ const app = express()
 
 const port = process.env.PORT || 3000
 
-const dbPath = "/temp"
+const dbPath = "/catstat"
 const spotPath = "/spot"
 const catPath = "/cat"
 
@@ -21,8 +21,8 @@ app.get('/', (req, res) => {
     res.send("<h1>Hello, World!<h1>")
 })
 
-app.use(dbPath, tempRouter)
-app.use(spotPath, tempRouter2)
+app.use(dbPath, catRouter)
+app.use(spotPath, spotRouter)
 app.use(catPath, catTalkRouter)
 
 app.listen(port, () => {
