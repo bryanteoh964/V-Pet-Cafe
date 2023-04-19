@@ -64,20 +64,28 @@
         // this.position.y = event.clientY - 30
         let x_dist = 0
         let y_dist = 0
-        if (event.clientX > 0.75*screen.Width && event.clientY < 0.25*screen.Height) {
-          x_dist = (700) - this.position.x
-          y_dist = (70) - this.position.y
+        // moving cat towards labels
+        // cafe label
+        if (event.clientX < 0.22*screen.availWidth && event.clientX > 0.14*screen.availWidth && event.clientY > 0.07*screen.availHeight && event.clientY < 0.13*screen.availHeight) {
+          x_dist = 0.32*screen.width - this.position.x
+          y_dist = 0.2*screen.height - this.position.y
+        // play label
+        } else if (event.clientX < 0.46*screen.width && event.clientX > 0.39*screen.width && event.clientY > 0.56*screen.height && event.clientY < 0.61*screen.height) {
+          x_dist = 0.25*screen.availWidth - this.position.x
+          y_dist = 0.55*screen.height - this.position.y
+        // bathroom label
+        } else if (event.clientX < 0.82*screen.width && event.clientX > 0.73*screen.width && event.clientY > 0.07*screen.height && event.clientY < 0.13*screen.height) {
+          x_dist = 0.78*screen.availWidth - this.position.x
+          y_dist = 0.17*screen.height - this.position.y
+        // sleep label
+        } else if (event.clientX < 0.86*screen.width && event.clientX > 0.78*screen.width && event.clientY > 0.51*screen.height && event.clientY < 0.55*screen.height) {
+          x_dist = 0.88*screen.availWidth - this.position.x
+          y_dist = 0.62*screen.height - this.position.y
         } else{
           x_dist = (event.clientX - 40) - this.position.x
           y_dist = (event.clientY - 30) - this.position.y
         }
-        if (event.clientX < 0.1*screen.Width && event.clientY < 0.25*screen.Height) {
-          x_dist = (100) - this.position.x
-          y_dist = (10) - this.position.y
-        } else{
-          x_dist = (event.clientX - 40) - this.position.x
-          y_dist = (event.clientY - 30) - this.position.y
-        }
+        
         // write a for loop that moves the character in steps towards the click
         for (let i = 0; i < 100; i++) {
           setTimeout(() => {
@@ -91,25 +99,25 @@
 </script>
 
 <template>
-    <div class="text-box">
-        <input v-model="question" placeholder="Question"><br>
-        <button v-on:click="talk">Talk</button>
-    </div>
-    <div id="playground">
-        <div 
-        class="pet"
-        :style="{ top: position.y + 'px', left: position.x + 'px' }" 
-        @click="moveTo($event)"
-        tabindex="0">
-          <img src="..\assets\cat-9161.png" class="cat">
-          <p> {{ catTalk }}</p>
-        </div>
-    </div>
+  <div class="text-box">
+      <input v-model="question" placeholder="Question"><br>
+      <button v-on:click="talk">Talk</button>
+  </div>
+  <div id="playground">
+      <div 
+      class="pet"
+      :style="{ top: position.y + 'px', left: position.x + 'px' }" 
+      @click="moveTo($event)"
+      tabindex="0">
+        <img src="..\assets\cat-9161.png" class="cat">
+        <p> {{ catTalk }}</p>
+      </div>
+  </div>
 </template>
 
 <style>
     #playground {
-      background-image: url("../assets/Petcafe.svg");
+      background-image: url("../assets/petcafebackground.svg");
       margin: 0;
       top: 100px;
       padding: 0;
