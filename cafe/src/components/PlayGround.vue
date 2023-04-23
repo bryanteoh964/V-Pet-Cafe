@@ -112,12 +112,26 @@
         <img src="..\assets\cat-9161.png" class="cat">
         <p> {{ catTalk }}</p>
       </div>
+      <button @click="handleEatClick($event)">
+        <img src="..\assets\eat.png" class="eatsign">
+      </button>
+      <button @click="handlePlayClick($event)">
+        <img src="..\assets\play.png" class="playsign">
+      </button>
+      <button @@click="handleShowerClick($event)">
+        <img src="..\assets\shower.png" class="showersign">
+      </button>
+      <button @click="handleSleepClick($event)">
+        <img src="..\assets\sleep.png" class="sleepsign">
+      </button>
   </div>
 </template>
 
 <style>
     #playground {
-      background-image: url("../assets/petcafebackground.svg");
+      background-image: url("../assets/Petbackground.svg");
+      /* layer image in different position*/
+      background-position: 0 0;
       margin: 0;
       top: 100px;
       padding: 0;
@@ -127,6 +141,39 @@
       background-repeat: no-repeat;
       /* background-color: #cccccc; */
     }
+
+    .eatsign {
+      position: absolute;
+      top: 12%;
+      left: 22%;
+      width: 8vw; 
+      height: auto;
+    }
+
+    .showersign {
+      position: absolute;
+      top: 12%;
+      left: 79%;
+      width: 8vw; 
+      height: auto;
+    }
+
+    .playsign {
+      position: absolute;
+      top: 85%;
+      left: 50%;
+      width: 8vw; 
+      height: auto;
+    }
+
+    .sleepsign {
+      position: absolute;
+      top: 70%;
+      left: 74%;
+      width: 8vw; 
+      height: auto;
+    }
+
     .cat {
       margin: 0;
       padding: 0;
@@ -156,5 +203,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    .layered-image {
+    position: absolute;
+    top: 0;
+    left: 0;
     }
 </style>
