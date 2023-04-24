@@ -156,14 +156,14 @@
         </div>
     </div>
     <div>
-        <button id="pet-cat"  @click="doNotMove($event); callStatBoard('increaseHappiness')">Pet Cat</button>
+        <img src="..\assets\play.png" class="playsign sign" id="pet-cat"  @click="doNotMove($event); callStatBoard('increaseHappiness')">
         <div id="feed-cat">
           <div class="hover">
-            <button @click="doNotMove($event); callStatBoard('increaseHunger')">Feed Cat</button>
+            <img src="..\assets\eat.png" class="eatsign sign" @click="doNotMove($event); callStatBoard('increaseHunger')">
           </div>
           <div class="disclaimer">Disclaimer: Chocolate is not safe for cats!!</div>
         </div>
-        <button id="take-shower" @click="doNotMove($event); callStatBoard('takeShower')">Take a Shower</button>
+        <img src="..\assets\shower.png" class="showersign sign" id="take-shower" @click="doNotMove($event); callStatBoard('takeShower')">
     </div>
   </div>
 </template>
@@ -173,7 +173,7 @@
       position: fixed;
     }
     .playground {
-      background: url("../assets/petcafebackground.svg") no-repeat center fixed;  
+      background: url("../assets/Petbackground.svg") no-repeat center fixed;  
       background-size: cover;
       margin: 0;
       top: 0;
@@ -185,14 +185,16 @@
       background-repeat: no-repeat;
     }
 
+    .sign{
+      border-radius: 10px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.49);
+    }
     .eatsign {
-      position: absolute;
       top: 12%;
       left: 22%;
       width: 8vw; 
       height: auto;
     }
-
     .showersign {
       position: absolute;
       top: 12%;
@@ -200,7 +202,6 @@
       width: 8vw; 
       height: auto;
     }
-
     .playsign {
       position: absolute;
       top: 85%;
@@ -208,7 +209,6 @@
       width: 8vw; 
       height: auto;
     }
-
     .sleepsign {
       position: absolute;
       top: 70%;
@@ -271,8 +271,8 @@
     }
     #take-shower {
       position: absolute;
-      top: 20vh;
-      left: 80vw;
+      top: 15vh;
+      left: 79vw;
     }
 
     .text-box {
@@ -283,7 +283,7 @@
       width: auto;
       height: auto;
       top: 86vh;
-      left: 30vw;
+      left: 22vw;
       border-radius: 10px;
       font-family: Avenir;
       font-size: 14px;

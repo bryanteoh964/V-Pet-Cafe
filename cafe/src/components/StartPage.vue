@@ -12,9 +12,8 @@
     <div>
       <router-link to="/login" class="button">Login</router-link>
       <router-link to="/main" class="button">Playground</router-link>
-      <router-link to="/dbtest" class="button">DbTest</router-link>
-      <router-link to="/spottest" class="button">SpotTest</router-link>
-      <router-link to="/UItest" class="button">UItest</router-link>
+      <!-- <router-link to="/dbtest" class="button">DbTest</router-link>
+      <router-link to="/spottest" class="button">SpotTest</router-link> -->
     <p>Click anywhere to move your cat to the desired location.</p>
     <p>Click on the cactivity labels to interact with your cat.</p>
     <p>HAVE FUN!!</p>
