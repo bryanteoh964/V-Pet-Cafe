@@ -29,7 +29,29 @@ class SpotService {
     static getUser(user, auth) {
         return new Promise(async (resolve, reject) => {
             try {  
-                const res = await axios.get(`${apiUrl}getUser/${user}/${auth}`);
+                const config = {
+                    headers: {
+                        'Authorization': `${auth}`
+                    }
+                }
+                const res = await axios.get(`${apiUrl}getUser/${user}`, config);
+                const data = res.data;
+                resolve(data)
+            } catch (err) {
+                reject(err);
+            }
+        })
+    }
+
+    static logout(auth) {
+        return new Promise(async (resolve, reject) => {
+            try {  
+                const config = {
+                    headers: {
+                        'Authorization': `${auth}`
+                    }
+                }
+                const res = await axios.get(`${apiUrl}logout`, config);
                 const data = res.data;
                 resolve(data)
             } catch (err) {

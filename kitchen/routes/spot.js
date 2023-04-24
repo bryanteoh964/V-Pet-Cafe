@@ -1,12 +1,21 @@
 const express = require('express');
 const router = express.Router();
+
 const axios = require('axios');
-const jsonParser = require('body-parser').json()
+
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+const checkAuthorization = require('./checkauth');
+
+const jsonParser = require('body-parser').json();
 require('dotenv').config();
+
+const User = require("../models/user");
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 function generateRandomString(length) {
     let res = '';
@@ -50,7 +59,40 @@ router.get('/getToken/:code', jsonParser, (req, res) => {
   })
     .then(response => {
       if (response.status === 200) {
-        res.send(response.data);
+        const { access_token, token_type } = response.data;
+        axios.get('https://api.spotify.com/v1/me', {
+          headers: {
+            Authorization: `${token_type} ${access_token}`
+          }
+        }).then(async response => {
+          const resp = response.data
+
+          const hash = crypto.createHash('sha256')
+          hash.update(access_token);
+          const accessTokenHash = hash.digest('hex')
+
+          try {
+            const user = await User.findOneAndUpdate({email: resp.email}, {
+              email: resp.email,
+              name: resp.display_name,
+              spotifyAccessToken: access_token,
+              spotifyAccessTokenHash: accessTokenHash
+            }, 
+            {'upsert': 'true'}) 
+          } catch (err) {
+              console.log(err);
+          }
+          
+          const jwtPayload = {
+            spotifyAccessTokenHash: accessTokenHash 
+          };
+
+          const authJwToken = jwt.sign(jwtPayload, JWT_SECRET)
+          res.send(authJwToken);
+
+        }).catch(error => {
+          res.send(error)
+        })
       } else {
         res.send(response);
       }
@@ -60,9 +102,9 @@ router.get('/getToken/:code', jsonParser, (req, res) => {
     });
 });
 
-router.get('/getUser/:user/:auth', jsonParser, (req, res) => {
+router.get('/getUser/:user', checkAuthorization, jsonParser, (req, res) => {
   const user = req.params.user;
-  const auth = req.params.auth;
+  const auth = req.user.spotifyAccessToken;
 
   axios.get(`https://api.spotify.com/v1/users/${user}`, {
         headers: {
@@ -73,7 +115,21 @@ router.get('/getUser/:user/:auth', jsonParser, (req, res) => {
   }).catch(error => {
     res.send(error);
   });
-})
+});
+
+router.get('/logout', checkAuthorization, async (req, res) => {
+    const userJWT = req.headers.authorization
+    const userJWTPayload = jwt.verify(userJWT, JWT_SECRET)
+    try {
+      await User.findOneAndUpdate({spotifyAccessTokenHash: userJWTPayload.spotifyAccessTokenHash},
+        {spotifyAccessToken: null})
+      console.log('done')
+      res.send('done')
+    } catch (err) {
+      console.log(err)
+      res.send(err)
+    }
+});
 
 module.exports = router;
 

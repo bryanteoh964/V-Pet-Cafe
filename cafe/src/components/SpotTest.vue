@@ -1,5 +1,6 @@
 <template>
     <div>
+        <button v-on:click="logOut">Out</button>
         <div class="spotify-user">
             <label for="spotify-user">Find Spotify user</label><br>
             <input type="fuser" id="fuser" v-model="user" placeholder="Username"><br>
@@ -29,12 +30,16 @@
         },
         methods: {
             async findUser() {
-                this.userRes = await SpotService.getUser(this.user, JSON.parse(localStorage.getItem('authCode')).access_token)
+                this.userRes = await SpotService.getUser(this.user, localStorage.getItem('authCode'))
                 if(this.userRes.images.length > 0) {
                     this.picLink = this.userRes.images[0].url;
                 } else {
                     this.picLink = '';
                 }
+            },
+            async logOut() {
+                const log = await SpotService.logout(localStorage.getItem('authCode'))
+                localStorage.removeItem('authCode')
             }
         }
     }

@@ -20,10 +20,8 @@
             async setToken() {
                 this.authData = await SpotService.getToken(this.$route.query.code);
 
-                // using local storage for testing
-                // will switch to a more secure option later
                 localStorage.removeItem('authCode')
-                localStorage.setItem('authCode', JSON.stringify(this.authData))
+                localStorage.setItem('authCode', this.authData)
             }
         }
     }
