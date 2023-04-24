@@ -1,10 +1,15 @@
 <script>
   import TalkService from '../services/TalkService';
+  import StatBoard from './StatBoard.vue';
 
   export default {
+    components: {
+      StatBoard
+    },
     data() {
       return {
-        position: { x: 300, y: 300 },
+        position: { x: 300, y: 300},
+        prev_position: { x: 300, y: 300},
         catTalk: "",
         question: ""
       };
@@ -20,13 +25,26 @@
       window.removeEventListener('resize', this.handleResize);
     },
     methods: {
+      callStatBoard(call) {
+        const statBoard = this.$refs.statBoardRef;
+        switch(call) {
+          case "increaseHappiness":
+            statBoard.increaseHappiness();
+            break;
+          case "increaseHunger":
+            statBoard.increaseHunger();
+            break;
+          case "takeShower":
+            statBoard.takeShower();
+            break;
+        }
+      },
       async talk() {
         this.catTalk = await TalkService.getTalk(this.question)
       },
       handleResize(event) {
         const width = event.currentTarget.innerWidth;
         const height = event.currentTarget.innerHeight;
-        console.log(width)
         this.position.x = 0.2 * width;
         this.position.y = 0.2 * height;
       },
@@ -59,9 +77,10 @@
         }
       },
       handleClick(event) {
+        // save the previous position
+        this.prev_position.x = this.position.x
+        this.prev_position.y = this.position.y
         // get the position of the click relative to the character's parent element
-        // this.position.x = event.clientX - 40
-        // this.position.y = event.clientY - 30
         let x_dist = 0
         let y_dist = 0
         // moving cat towards labels
@@ -85,76 +104,171 @@
           x_dist = (event.clientX - 40) - this.position.x
           y_dist = (event.clientY - 30) - this.position.y
         }
+        x_dist -= 50
+        y_dist -= 40
         
         // write a for loop that moves the character in steps towards the click
         for (let i = 0; i < 100; i++) {
           setTimeout(() => {
             this.position.x += x_dist / 100
             this.position.y += y_dist / 100
-        }, i * 10)
-      }
-    },
+          }, i * 10)
+        }
+      },
+      doNotMove(event) {
+        this.prev_position.x = this.position.x
+        this.prev_position.y = this.position.y
+        // get the position of the click relative to the character's parent element
+        let x_dist = -((event.clientX - this.prev_position.x)) + 90
+        let y_dist = -((event.clientY - this.prev_position.y)) + 70
+        
+        // write a for loop that moves the character in steps towards the click
+        for (let i = 0; i < 100; i++) {
+          setTimeout(() => {
+            this.position.x += x_dist / 100
+            this.position.y += y_dist / 100
+          }, i * 10)
+        }
+        this.prev_position.x = this.position.x
+        this.prev_position.y = this.position.y
+      },
     },
   };
 </script>
 
 <template>
-  <div class="text-box">
-      <input v-model="question" placeholder="Question"><br>
-      <button v-on:click="talk">Talk</button>
-  </div>
-  <div id="playground">
-      <div 
-      class="pet"
-      :style="{ top: position.y + 'px', left: position.x + 'px' }" 
-      @click="moveTo($event)"
-      tabindex="0">
-        <img src="..\assets\cat-9161.png" class="cat">
-        <p> {{ catTalk }}</p>
-      </div>
+  <div class="background">
+    <div class="stat-display" @click="doNotMove($event)">
+      <StatBoard ref="statBoardRef"></StatBoard>
+    </div>
+    <div class="text-box" @click="doNotMove($event)">
+        <input class="input" v-model="question" placeholder="Meow, let's chat!">
+        <button class="submit" v-on:click="talk">Talk</button>
+    </div>
+    <div class="playground">
+        <div 
+        class="pet"
+        :style="{ top: position.y + 'px', left: position.x + 'px' }" 
+        @click="moveTo($event)"
+        tabindex="0">
+          <img src="..\assets\cat-9161.png" class="cat">
+          <p class="response-box"> {{ catTalk }}</p>
+        </div>
+    </div>
+    <div>
+        <button id="pet-cat"  @click="doNotMove($event); callStatBoard('increaseHappiness')">Pet Cat</button>
+        <div id="feed-cat">
+          <div class="hover">
+            <button @click="doNotMove($event); callStatBoard('increaseHunger')">Feed Cat</button>
+          </div>
+          <div class="disclaimer">Disclaimer: Chocolate is not safe for cats!!</div>
+        </div>
+        <button id="take-shower" @click="doNotMove($event); callStatBoard('takeShower')">Take a Shower</button>
+    </div>
   </div>
 </template>
 
 <style>
-    #playground {
-      background-image: url("../assets/petcafebackground.svg");
+    .background {
+      position: fixed;
+    }
+    .playground {
+      background: url("../assets/petcafebackground.svg") no-repeat center fixed;  
+      background-size: cover;
       margin: 0;
-      top: 100px;
+      top: 0;
+      left:0;
       padding: 0;
-      height: 95vh;
-      width: 100wh;
-      background-size: 100%;
+      height: 98vh;
+      width: 98vw;
+      overflow: hidden;
       background-repeat: no-repeat;
-      /* background-color: #cccccc; */
     }
     .cat {
       margin: 0;
       padding: 0;
       width: 9vw;
+      user-select: none;
+      -webkit-user-drag: none;
+      overflow: hidden;
+      pointer-events: none; 
     }
-    /* #playground {
-        height: 500px;
-        width: 500px;
-        outline: 0px solid black;
-        position: relative;
-    } */
+    .response-box {
+      height: auto;
+      width: 9vw;
+    }
     .pet {
-        height: 150px;
-        width: 150px;
+        margin: 0;
+        padding: 0 0;
         position: relative;
         top: 78px;
         left: 2px;
     }
-    .textbox {
-        position: fixed;
-        top: 0;
-        left: 100px;
-        text-align: center;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        
+    .stat-display {
+      position: absolute;
+      bottom: 2.5vh;
+      left: 1vw;
+    }
+    .buttons {
+      position: absolute;
+    }
+    #pet-cat {
+      position: absolute;
+      top: 60vh;
+      left: 25vw;
+    }
+    #feed-cat {
+      position: absolute;
+      top: 23vh;
+      left: 25vw;
+    }
+    .disclaimer {
+      display: none;
+    }
+    .hover:hover + .disclaimer {
+      display: block;
+      color: red;
+      background-color: white;
+      padding: 5px;
+      margin: 20px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.49);
+    }
+    #take-shower {
+      position: absolute;
+      top: 20vh;
+      left: 80vw;
+    }
+
+    .text-box {
+      display: inline-block;
+      position: absolute;
+      background-color: #fff;
+      padding: 10px;
+      width: auto;
+      height: auto;
+      top: 86vh;
+      left: 30vw;
+      border-radius: 10px;
+      font-family: Avenir;
+      font-size: 14px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .input, .submit {
+        display: inline-block;
+        padding: 10px 15px;
+        font-size: 20px;
+        border-radius: 500px;
+    }
+    .input {
+        border: 1px solid lightgray;
+        height: 2.5vh;
+        width: 35vw;
+    }
+    .submit {
+        background-color: lightgreen;
+        border: 1px solid transparent;
     }
 </style>

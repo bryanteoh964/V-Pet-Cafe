@@ -30,7 +30,7 @@ const routes = [
     {
         path: '/dbtest',
         component: DatabaseTest
-    }
+    },
 ]
 
 const router = createRouter({
