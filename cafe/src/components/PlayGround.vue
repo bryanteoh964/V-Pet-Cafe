@@ -184,6 +184,39 @@
       overflow: hidden;
       background-repeat: no-repeat;
     }
+
+    .eatsign {
+      position: absolute;
+      top: 12%;
+      left: 22%;
+      width: 8vw; 
+      height: auto;
+    }
+
+    .showersign {
+      position: absolute;
+      top: 12%;
+      left: 79%;
+      width: 8vw; 
+      height: auto;
+    }
+
+    .playsign {
+      position: absolute;
+      top: 85%;
+      left: 50%;
+      width: 8vw; 
+      height: auto;
+    }
+
+    .sleepsign {
+      position: absolute;
+      top: 70%;
+      left: 74%;
+      width: 8vw; 
+      height: auto;
+    }
+
     .cat {
       margin: 0;
       padding: 0;
@@ -270,5 +303,11 @@
     .submit {
         background-color: lightgreen;
         border: 1px solid transparent;
+    }
+
+    .layered-image {
+    position: absolute;
+    top: 0;
+    left: 0;
     }
 </style>
