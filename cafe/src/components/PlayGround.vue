@@ -165,29 +165,43 @@
         </div>
         <img src="..\assets\shower.png" class="showersign sign" id="take-shower" @click="doNotMove($event); callStatBoard('takeShower')">
     </div>
+    <div>
+      <router-link to="/" class="back-button button">{{'<< Go Back'}}</router-link>
+    </div>
   </div>
 </template>
 
 <style>
+    .back-button {
+      padding: 8px 26px 8px 20px;
+      position: absolute;
+      bottom: 0.25vw;
+      right: 0.5vh;
+    }
     .background {
+      margin: 0;
       position: fixed;
+      /* background-color: #D2B48C; */
     }
     .playground {
       background: url("../assets/Petbackground.svg") no-repeat center fixed;  
       background-size: cover;
       margin: 0;
       top: 0;
-      left:0;
+      left: 0;
       padding: 0;
-      height: 98vh;
-      width: 98vw;
+      height: 99vh;
+      width: 99vw;
       overflow: hidden;
       background-repeat: no-repeat;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+      border: 2px solid #5c5c5c;
+      border-radius: 10px;
     }
 
     .sign{
-      border-radius: 10px;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.49);
+      border-radius: 25px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
     }
     .eatsign {
       top: 12%;
@@ -240,7 +254,7 @@
         
     .stat-display {
       position: absolute;
-      bottom: 2.5vh;
+      bottom: 1.5vh;
       left: 1vw;
     }
     .buttons {
@@ -249,12 +263,12 @@
     #pet-cat {
       position: absolute;
       top: 60vh;
-      left: 25vw;
+      left: 32vw;
     }
     #feed-cat {
       position: absolute;
       top: 23vh;
-      left: 25vw;
+      left: 20vw;
     }
     .disclaimer {
       display: none;
@@ -296,9 +310,10 @@
         border-radius: 500px;
     }
     .input {
-        border: 1px solid lightgray;
+        border: 1px solid rgb(154, 154, 154);
         height: 2.5vh;
         width: 35vw;
+        margin-right: 1vw;
     }
     .submit {
         background-color: lightgreen;
@@ -306,8 +321,8 @@
     }
 
     .layered-image {
-    position: absolute;
-    top: 0;
-    left: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 </style>

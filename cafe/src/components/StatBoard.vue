@@ -36,15 +36,14 @@ export default {
     },
     methods: {
         increaseHappiness() {
-            console.log("Increase Happiness Called")
             this.changeStat("happiness", 50);
         },
         increaseHunger() {
-            console.log("Increase Hunger Called")
+            // const snd = new Audio(required("..\assets\nom-nom-nom.wav"));
+            // snd.play();
             this.changeStat("hunger", 50);
         },
         takeShower() {
-            console.log("Take Shower Called")
             this.changeStat("happiness", -100);
             this.changeStat("cleanliness", -80);
         },
@@ -102,15 +101,15 @@ export default {
             <div class="portrait">
                 <img src="..\assets\cat-9161.png" class="cat-icon">
             </div>
-            <p>Happiness: {{ happiness }}</p>
+            <p class="text">Happiness: {{ happiness }}</p>
             <div class="status-bar-border">
                 <div class="status-bar happiness" :style="{ width: `${happiness / 10}%` }"></div>
             </div>
-            <p>Hunger: {{ hunger }}</p>
+            <p class="text">Hunger: {{ hunger }}</p>
             <div class="status-bar-border">
                 <div class="status-bar cleanliness" :style="{ width: `${hunger / 10}%` }"></div>
             </div>
-            <p>Cleanliness: {{ cleanliness }}</p>
+            <p class="text">Cleanliness: {{ cleanliness }}</p>
             <div class="status-bar-border">
                 <div class="status-bar hunger" :style="{ width: `${cleanliness / 10}%` }"></div>
             </div>
@@ -149,14 +148,18 @@ export default {
         bottom: 0;
     }
     .stats-board {
-        height: 32vh;
-        width: 8vw;
+        height: 30vh;
+        width: 18vh;
         padding: 2vw;
         background-color: #f0f0f0;
-        border: 1px solid #ccc;
+        border: 1px solid #5c5c5c;
         border-radius: 10px;
+        overflow: hidden;
     }
-
+    .text {
+        height: 0.5vh;
+        width: 10rem;
+    }
     .status-bar-border{
         border: 1px solid black;
         width: 100%;
@@ -175,6 +178,6 @@ export default {
       background-color: yellow;
     }
     .hunger {
-    background-color: red;
+        background-color: red;
     }
 </style>
