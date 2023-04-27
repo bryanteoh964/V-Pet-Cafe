@@ -35,7 +35,7 @@ export default {
         <div class="cat-card"></div>
         <div class="activity-links">
             <div>
-                <h1 class="cat-name">[Name]</h1>
+                <h1 class="cat-name">[Cat Name]</h1>
                 <div class="cat-box">
                     <img src="..\assets\cat-9161.png" class="cat-profile">
                 </div>

@@ -11,7 +11,8 @@
         position: { x: 300, y: 300},
         prev_position: { x: 300, y: 300},
         catTalk: "",
-        question: ""
+        question: "",
+        show_text_box: "none",
       };
     },
     mounted() {
@@ -132,18 +133,27 @@
         this.prev_position.x = this.position.x
         this.prev_position.y = this.position.y
       },
+      changeTextBox() {
+        if (this.show_text_box === "block") {
+          this.show_text_box = "none"
+        } else {
+          this.show_text_box = "block"
+        }
+        console.log(this.show_text_box)
+      }
     },
   };
 </script>
 
 <template>
   <div class="background">
-    <div class="stat-display" @click="doNotMove($event)">
-      <StatBoard ref="statBoardRef"></StatBoard>
+    <div class="stat-display" @click="doNotMove($event); changeTextBox()">
+        <StatBoard ref="statBoardRef"></StatBoard>
     </div>
     <div class="text-box" @click="doNotMove($event)">
         <input class="input" v-model="question" placeholder="Meow, let's chat!">
         <button class="submit" v-on:click="talk">Talk</button>
+        <button class="show" @click="changeTextBox()">Show</button>
     </div>
     <div class="playground">
         <div 
@@ -152,21 +162,23 @@
         @click="moveTo($event)"
         tabindex="0">
           <img src="..\assets\cat-9161.png" class="cat">
-          <p class="response-box"> {{ catTalk }}</p>
+          <div class="response-box" @click="doNotMove($event)" :style="{ display: show_text_box}" >
+              <p>{{ catTalk }}</p>
+          </div>
         </div>
     </div>
     <div>
         <img src="..\assets\play.png" class="playsign sign" id="pet-cat"  @click="doNotMove($event); callStatBoard('increaseHappiness')">
         <div id="feed-cat">
-          <div class="hover">
-            <img src="..\assets\eat.png" class="eatsign sign" @click="doNotMove($event); callStatBoard('increaseHunger')">
-          </div>
-          <div class="disclaimer">Disclaimer: Chocolate is not safe for cats!!</div>
+            <div class="hover">
+                <img src="..\assets\eat.png" class="eatsign sign" @click="doNotMove($event); callStatBoard('increaseHunger')">
+            </div>
+            <div class="disclaimer">Disclaimer: Chocolate is not safe for cats!!</div>
         </div>
         <img src="..\assets\shower.png" class="showersign sign" id="take-shower" @click="doNotMove($event); callStatBoard('takeShower')">
     </div>
     <div>
-      <router-link to="/" class="back-button button">{{'⇐ Go Back'}}</router-link>
+        <router-link to="/" class="back-button button">{{'⇐ Go Back'}}</router-link>
     </div>
   </div>
 </template>
@@ -205,6 +217,13 @@
     .sign{
       border-radius: 25px;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .sign:hover {
+      background-image: linear-gradient(rgb(0 0 0/3%) 0 0);
+      /* box-shadow: 0 0.2px 0.6px 0.2px rgba(0, 0, 0, 0.7); */
     }
     .eatsign {
       top: 12%;
@@ -241,11 +260,18 @@
       user-select: none;
       -webkit-user-drag: none;
       overflow: hidden;
-      pointer-events: none; 
+      pointer-events: none;
     }
     .response-box {
-      height: auto;
-      width: 9vw;
+      background-color: #fed9ff;
+      width: 16vw;
+      height: 20vh;
+      font-size: 2vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      overflow-wrap: break-word;
+      padding: 0px 18px 0px 10px;
+      border-radius: 2vh;
     }
     .pet {
         margin: 0;
@@ -300,17 +326,25 @@
       width: auto;
       height: auto;
       top: 86vh;
-      left: 22vw;
+      left: 18vw;
       border-radius: 10px;
       font-family: Avenir;
       font-size: 14px;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
-    .input, .submit {
-        display: inline-block;
-        padding: 10px 15px;
-        font-size: 20px;
-        border-radius: 500px;
+    .input, .submit, .show {
+      display: inline-block;
+      padding: 10px 15px;
+      font-size: 20px;
+      border-radius: 500px;
+    }
+    .submit:hover {
+      background-image: linear-gradient(rgb(0 0 0/3%) 0 0);
+      box-shadow: 0 0.2px 0.6px 0.2px rgba(0, 0, 0, 0.7);
+    }
+    .show:hover {
+      background-image: linear-gradient(rgb(0 0 0/3%) 0 0);
+      box-shadow: 0 0.2px 0.6px 0.2px rgba(0, 0, 0, 0.7);
     }
     .input {
         border: 1px solid rgb(154, 154, 154);
@@ -321,6 +355,13 @@
     .submit {
         background-color: lightgreen;
         border: 1px solid transparent;
+        cursor: pointer;
+        margin-right: 0.5vw;
+    }
+    .show {
+      background-color: lightgreen;
+      border: 1px solid transparent;
+      cursor: pointer;
     }
 
     .layered-image {
