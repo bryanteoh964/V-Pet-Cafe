@@ -21,18 +21,30 @@ export default {
       </div>
     </div>
     <div class="right-div">
-      <div class="profile-bar">
         <div class="profile-card">
-          <div class="profile-picture"></div>
-          <div class="profile-name"></div>
-        </div>
+            <div class="profile-box-1">
+                <div class="profile-picture" id="profile-circle"></div>
+            </div>
+            <div class="profile-box-2">
+                <div class="profile-name">
+                  <h3>[Username]</h3>
+                </div>
+            </div>
       </div>
       <div class="right-div-window">
         <div class="cat-card"></div>
         <div class="activity-links">
-          <router-link to="/main" class="button">Playground</router-link> <br>
-          <router-link to="/login" class="button">Login</router-link>
-          <router-link to="/login" class="button">Logout</router-link>
+            <div>
+                <h1 class="cat-name">[Name]</h1>
+                <div class="cat-box">
+                    <img src="..\assets\cat-9161.png" class="cat-profile">
+                </div>
+            </div>
+            <div>
+                <router-link to="/main" class="button playground-button">Playground</router-link>
+                <router-link to="/login" class="button log-button">Login</router-link>
+                <router-link to="/login" class="button log-button">Logout</router-link>
+            </div>
           <!-- <router-link to="/dbtest" class="button">DbTest</router-link>
                   <router-link to="/spottest" class="button">SpotTest</router-link> -->
           <!-- <p>Directions:</p>
@@ -50,6 +62,7 @@ export default {
 @import url('https://fonts.cdnfonts.com/css/hontary');
 @import url('https://fonts.cdnfonts.com/css/games');
 @import url('https://fonts.cdnfonts.com/css/castlery');
+@import url('https://fonts.cdnfonts.com/css/g-gerhana-matahari');
 
 .title {
   font-family: 'castlery', sans-serif;
@@ -114,6 +127,9 @@ export default {
     background-color: #adb5bd;
   } */
 .profile-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   top: 1.5vh;
   right: 1.5vw;
@@ -123,6 +139,34 @@ export default {
   border-radius: 2vh;
   border: 0.3vh solid rgb(154, 154, 154);
   box-shadow: 1px 1px 1px -1px #313131;
+}
+.profile-box-1 {
+  flex-grow: 1;
+}
+.profile-box-2 {
+  flex-grow: 4;
+  width: 7wh;
+  overflow: hidden;
+}
+#profile-circle {
+  background: url("..\assets\cat-9161.png");
+  background-size: cover;
+  border-radius:50% 50% 50% 50%;
+  width:7vh;
+  height:7vh;
+  background-color: white;
+  position: relative;
+  left: 0.3vw;
+  margin-right: 1.5vh;
+  border: 0.3vh solid rgb(154, 154, 154);
+  box-shadow: 1px 1px 1px -1px #313131;
+}
+.profile-name {
+  position: relative;
+  font-family: 'g Gerhana Matahari', sans-serif;                                              
+  font-size: 1.7vh;
+  color: rgb(0, 0, 0);
+  user-select: none;
 }
 
 .right-div-window {
@@ -141,26 +185,53 @@ export default {
 
 .activity-links {
   width: 50%;
-  padding: 4vh 2vw 4vh 2vw;
-  border: 0.3vh solid rgb(168, 168, 168);
+  margin: 10vh 0vw 0vh 0vw;
+  padding: 1vh 2vw 6vh 2vw;
   background-color: rgb(255, 255, 255);
+  border: 0.3vh solid rgb(168, 168, 168);
   border-radius: 1.5vh;
-  font-size: 3vh;
   box-shadow: 2px 1px 1px -1px #313131;
+  font-size: 3vh;
   font-family: 'Games', sans-serif;
+  background-color: #D7D4D5;
 }
-
+.cat-name {
+  font-family: 'SelfWorld', sans-serif;
+  font-size: 5vh;
+  margin-bottom: 2vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cat-profile {
+  width: 100%;
+  border-radius: 1.5vh;
+  margin-bottom: 1.2vh;
+  border: 0.1vh solid rgb(154, 154, 154);
+  background-color: white;
+}
 .button {
-  background-color: green;
-  color: white;
+  background-color: #d3ff96;
+  color: #313131;
   padding: 1.2vh 1.8vw;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 2vh;
-  margin: 1vh 0.2vw;
+  font-size: 2.5vh;
+  margin: 1vh 0.1vw;
   cursor: pointer;
   border-radius: 1.5vh;
-  border: 0.1vh solid rgb(154, 154, 154);
-}</style>
-
+  border: 0.1vh solid rgb(151, 148, 148);
+  box-shadow: 1.5px 1.5px 1px -1px #313131;
+}
+.button:hover {
+  background-image: linear-gradient(rgb(0 0 0/3%) 0 0);
+  box-shadow: 0 0.5px 1.5px 0.5px rgba(0, 0, 0, 0.7);
+}
+.playground-button {
+  width: 80%;
+}
+.log-button {
+  width: 30%;
+}
+</style>

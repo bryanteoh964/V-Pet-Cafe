@@ -166,13 +166,16 @@
         <img src="..\assets\shower.png" class="showersign sign" id="take-shower" @click="doNotMove($event); callStatBoard('takeShower')">
     </div>
     <div>
-      <router-link to="/" class="back-button button">{{'<< Go Back'}}</router-link>
+      <router-link to="/" class="back-button button">{{'⇐ Go Back'}}</router-link>
     </div>
   </div>
 </template>
 
 <style>
+    @import url('https://fonts.cdnfonts.com/css/games');
     .back-button {
+      font-family: 'games', sans-serif;
+      font-size: 1.1vw;
       padding: 8px 26px 8px 20px;
       position: absolute;
       bottom: 0.25vw;

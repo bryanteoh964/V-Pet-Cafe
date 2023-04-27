@@ -1,6 +1,5 @@
 <template>
-    <p>Hi there bob</p>
-    
+    <p></p>
 </template>
 
 <script>
