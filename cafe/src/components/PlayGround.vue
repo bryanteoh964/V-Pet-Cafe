@@ -154,6 +154,7 @@
         <input class="input" v-model="question" placeholder="Meow, let's chat!">
         <button class="submit" v-on:click="talk">Talk</button>
         <button class="show" @click="changeTextBox()">Show</button>
+        <router-link class="date" to="/date">Find your Purrmate</router-link>
     </div>
     <div class="playground">
         <div 
@@ -199,7 +200,7 @@
       /* background-color: #D2B48C; */
     }
     .playground {
-      background: url("../assets/Petbackground.svg") no-repeat center fixed;  
+      background: url("../assets/petcafebackground.svg") no-repeat center fixed;  
       background-size: cover;
       margin: 0;
       top: 0;
@@ -332,7 +333,7 @@
       font-size: 14px;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
-    .input, .submit, .show {
+    .input, .submit, .show, .date {
       display: inline-block;
       padding: 10px 15px;
       font-size: 20px;
@@ -359,6 +360,12 @@
         margin-right: 0.5vw;
     }
     .show {
+      background-color: lightgreen;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .date {
       background-color: lightgreen;
       border: 1px solid transparent;
       cursor: pointer;

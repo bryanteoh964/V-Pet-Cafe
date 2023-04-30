@@ -5,6 +5,7 @@ import LoginPage from '../components/LoginPage.vue'
 import CallBack from '../components/CallBack.vue'
 import DatabaseTest from '../components/DatabaseTest.vue'
 import SpotTest from '../components/SpotTest.vue'
+import Date from '../components/Date.vue'
 
 const routes = [
     {
@@ -31,6 +32,10 @@ const routes = [
         path: '/dbtest',
         component: DatabaseTest
     },
+    {
+        path: '/date',
+        component: Date
+    }
 ]
 
 const router = createRouter({
