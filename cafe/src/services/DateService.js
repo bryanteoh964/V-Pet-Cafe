@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { config } from 'dotenv';
 const apiUrl = 'http://localhost:3000/date/';
-axios.defaults.headers.common['x-api-key'] = "live_30WtDbthzKAWb31WrVZrLxawLpkpp8zwmKWywVFGVs0skdJtFo8q5RDBsfOAYMGb" // Replace here
+axios.defaults.headers.common['x-api-key'] = "DATE_KEY" // Replace here
 
 class DateService {
     static fetchCatImage() {
@@ -15,6 +15,6 @@ class DateService {
                 reject(err);
             }
         })
-    }
+    } 
 }
 export default DateService;

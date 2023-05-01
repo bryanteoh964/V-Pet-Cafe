@@ -16,6 +16,8 @@
   
 <script>
     import DateService from '../services/DateService';
+    import CatService from '../services/CatService';
+    import SpotService from '../services/SpotService';
     import axios from 'axios';
     
     export default {
@@ -40,9 +42,13 @@
             this.image_found = true;
         },  
         async displayMessage(message) {
-            alert(message);
-            await this.$router.push('/main');
-        }
+            // alert(message);
+            const user = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
+            const cat = await CatService.getCat(user);
+            await CatService.updateCat(cat.name, this.image);
+            
+        },
+
     } 
     } 
 </script>
