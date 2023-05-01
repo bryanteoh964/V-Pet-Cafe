@@ -149,6 +149,7 @@
 
 <template>
   <div class="background">
+    <iframe class="player" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0iyfXzKOJHKgUvS3G8Ayrj?utm_source=generator" width="30%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     <div class="stat-display" @click="doNotMove($event); changeTextBox()">
         <StatBoard ref="statBoardRef"></StatBoard>
     </div>
@@ -383,5 +384,11 @@
         position: absolute;
         top: 0;
         left: 0;
+    }
+
+    .player {
+      position: absolute;
+      top: 8.8%;
+      left: 44%;
     }
 </style>
