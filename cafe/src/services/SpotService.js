@@ -26,6 +26,23 @@ class SpotService {
         })
     }
 
+    static getCurrentUser(auth) {
+        return new Promise(async (resolve, reject) => {
+            try {  
+                const config = {
+                    headers: {
+                        'Authorization': `${auth}`
+                    }
+                }
+                const res = await axios.get(`${apiUrl}username`, config);
+                const data = res.data;
+                resolve(data)
+            } catch (err) {
+                reject(err);
+            }
+        })
+    }
+
     static getUser(user, auth) {
         return new Promise(async (resolve, reject) => {
             try {  

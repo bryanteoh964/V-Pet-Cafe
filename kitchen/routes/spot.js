@@ -117,6 +117,11 @@ router.get('/getUser/:user', checkAuthorization, jsonParser, (req, res) => {
   });
 });
 
+router.get("/username", checkAuthorization, async (req, res) => {
+  const user = req.user
+  res.send(user.name)
+});
+
 router.get('/logout', checkAuthorization, async (req, res) => {
     const userJWT = req.headers.authorization
     const userJWTPayload = jwt.verify(userJWT, JWT_SECRET)
