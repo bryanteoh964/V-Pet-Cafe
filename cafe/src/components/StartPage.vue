@@ -1,9 +1,43 @@
 <script>
-  export default {
-    data() {
-      return 0
+import SpotService from '../services/SpotService';
+export default {
+  data() {
+    return {
+      username: '',
+      loginURL: '',
+      error: '',
+      logged: false
+    }
+  },
+  mounted() {
+    this.getLogin()
+    this.checkLogin()
+  },
+  methods: {
+    async checkLogin() {
+      this.logged = (localStorage.getItem('authCode') != null)
+      if (this.logged) {
+        this.username = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
+      }
+    },
+    async getLogin() {
+      try {
+        this.loginURL = await SpotService.loginUrl();
+      } catch (err) {
+        this.error = err.message;
+      }
+    },
+    logOut() {
+      SpotService.logout(localStorage.getItem('authCode'));
+      localStorage.removeItem('authCode')
+      this.logged = false
+      this.username = ''
+    },
+    redirectLogin() {
+      window.location.href=this.loginURL;
     }
   }
+}
 </script>
 
 <template>
@@ -21,13 +55,13 @@
       </div>
     </div>
     <div class="right-div">
-        <div class="profile-card">
+        <div class="profile-card"  v-if="username">
             <div class="profile-box-1">
                 <div class="profile-picture" id="profile-circle"></div>
             </div>
             <div class="profile-box-2">
                 <div class="profile-name">
-                  <h3>[Username]</h3>
+                  <h3>{{ username }}</h3>
                 </div>
             </div>
       </div>
@@ -41,9 +75,15 @@
                 </div>
             </div>
             <div>
-                <router-link to="/main" class="button playground-button">Playground</router-link>
-                <router-link to="/login" class="button log-button">Login</router-link>
-                <router-link to="/login" class="button log-button">Logout</router-link>
+                <router-link to="/main" class="button playground-button" v-if="logged">Playground</router-link>
+                <button 
+                  class="button activity-links" 
+                  v-if="!logged"
+                  v-on:click="redirectLogin">Login</button>
+                <button 
+                  class="button activity-links" 
+                  v-if="logged"
+                  v-on:click="logOut">Logout</button>
             </div>
           <!-- <router-link to="/dbtest" class="button">DbTest</router-link>
                   <router-link to="/spottest" class="button">SpotTest</router-link> -->

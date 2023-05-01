@@ -8,7 +8,6 @@
     export default {
         mounted() {
             this.setToken();
-            this.$router.replace('/')
         },
         data() {
             return {
@@ -21,6 +20,8 @@
 
                 localStorage.removeItem('authCode')
                 localStorage.setItem('authCode', this.authData)
+
+                this.$router.replace('/');
             }
         }
     }

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { config } from 'dotenv';
 const apiUrl = 'http://localhost:3000/date/';
+axios.defaults.headers.common['x-api-key'] = "live_30WtDbthzKAWb31WrVZrLxawLpkpp8zwmKWywVFGVs0skdJtFo8q5RDBsfOAYMGb" // Replace here
 
 class DateService {
     static fetchCatImage() {
@@ -14,28 +15,6 @@ class DateService {
                 reject(err);
             }
         })
-    }
-
-    async getFavourite(){
-        return new Promise(async (resolve, reject) => {
-            try {
-                let response = await axios.get('https://api.thecatapi.com/v1/favourites'); 
-                this.favourite = response.data; 
-                resolve(this.favourite);
-            } catch(err){
-                reject(err)
-            }
-        })
-    }
-    async favouriteImage(image_id){
-        try{
-            let response = await axios.post('https://api.thecatapi.com/v1/favourites', post_body ) 
-            this.page = 1;
-            this.getFavourites()
-        }catch(error){
-            console.log(error)
-            this.error_message = error.response.data.message
-        }
     }
 }
 export default DateService;
