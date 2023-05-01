@@ -1,8 +1,8 @@
 <template>
-    <h1>Login through Spotify</h1>
+    <!-- <h1>Login through Spotify</h1>
     <br>
-    <button v-on:click="redirectLogin">LOGIN</button>
-    <p class="error" v-if="error">{{ error }}</p>
+    <button class="button log-button" v-on:click="redirectLogin">LOGIN</button>
+    <p class="error" v-if="error">{{ error }}</p> -->
 </template>
 
 <script>
@@ -16,18 +16,29 @@
             }
         },
         mounted() {
-            this.getLogin();
+            this.redirectLogin();
+        },  
+        created() {
+            setInterval(() => {
+                this.redirectLogin();
+            }, 1000);
         },
         methods: {
             async getLogin() {
+                console.log("getLogin() called")
                 try {
                     this.loginURL = await SpotService.loginUrl();
+                    console.log("there is no error");
                 } catch (err) {
+                    console.log("there is an error");
                     this.error = err.message;
                 }
             },
             redirectLogin() {
-                window.location.href=this.loginURL;
+                console.log("redirectLogin() called")
+                this.getLogin().then(() => {
+                    window.location.href=this.loginURL;
+                });
             }
         }
     }

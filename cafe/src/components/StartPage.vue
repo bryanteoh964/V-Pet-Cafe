@@ -1,15 +1,15 @@
 <script>
-export default {
-  data() {
-    return 0
+  export default {
+    data() {
+      return 0
+    }
   }
-}
 </script>
 
 <template>
   <div class="start_page">
     <div class="left-div">
-      <div class="title">
+      <div class="start-title">
         <h1>Welcome to V-Pet Cafe!</h1>
       </div>
       <div class="instructions">
@@ -64,7 +64,7 @@ export default {
 @import url('https://fonts.cdnfonts.com/css/castlery');
 @import url('https://fonts.cdnfonts.com/css/g-gerhana-matahari');
 
-.title {
+.start-title {
   font-family: 'castlery', sans-serif;
   font-size: 2.8vw;
   text-align: center;
