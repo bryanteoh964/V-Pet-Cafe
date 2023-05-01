@@ -77,11 +77,11 @@ export default {
             <div>
                 <router-link to="/main" class="button playground-button" v-if="logged">Playground</router-link>
                 <button 
-                  class="button activity-links" 
+                  class="button activity-links log-button" 
                   v-if="!logged"
                   v-on:click="redirectLogin">Login</button>
                 <button 
-                  class="button activity-links" 
+                  class="button activity-links log-button" 
                   v-if="logged"
                   v-on:click="logOut">Logout</button>
             </div>
@@ -189,7 +189,7 @@ export default {
   overflow: hidden;
 }
 #profile-circle {
-  background: url("..\assets\cat-9161.png");
+  background: url("..\assets\user-icon.png");
   background-size: cover;
   border-radius:50% 50% 50% 50%;
   width:7vh;
@@ -272,6 +272,6 @@ export default {
   width: 80%;
 }
 .log-button {
-  width: 30%;
+  width: 99%;
 }
 </style>

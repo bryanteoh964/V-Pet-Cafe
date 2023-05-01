@@ -1,10 +1,12 @@
 <script>
   import TalkService from '../services/TalkService';
   import StatBoard from './StatBoard.vue';
+  import Date from './Date.vue'
 
   export default {
     components: {
-      StatBoard
+      StatBoard,
+      Date
     },
     data() {
       return {
@@ -347,6 +349,10 @@
       background-image: linear-gradient(rgb(0 0 0/3%) 0 0);
       box-shadow: 0 0.2px 0.6px 0.2px rgba(0, 0, 0, 0.7);
     }
+    .date:hover {
+      background-image: linear-gradient(rgb(0 0 0/3%) 0 0);
+      box-shadow: 0 0.2px 0.6px 0.2px rgba(0, 0, 0, 0.7);
+    }
     .input {
         border: 1px solid rgb(154, 154, 154);
         height: 2.5vh;
@@ -354,21 +360,23 @@
         margin-right: 1vw;
     }
     .submit {
-        background-color: lightgreen;
-        border: 1px solid transparent;
-        cursor: pointer;
-        margin-right: 0.5vw;
+      background-color: lightgreen;
+      border: 1px solid transparent;
+      cursor: pointer;
+      margin-right: 0.5vw;
     }
     .show {
       background-color: lightgreen;
       border: 1px solid transparent;
       cursor: pointer;
+      margin-right: 0.5vw;
     }
 
     .date {
       background-color: lightgreen;
       border: 1px solid transparent;
       cursor: pointer;
+      text-decoration: none;
     }
 
     .layered-image {
