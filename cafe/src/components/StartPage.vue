@@ -1,5 +1,6 @@
 <script>
 import SpotService from '../services/SpotService';
+import CatService from '../services/CatService';
 export default {
   data() {
     return {
@@ -18,6 +19,20 @@ export default {
       this.logged = (localStorage.getItem('authCode') != null)
       if (this.logged) {
         this.username = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
+        try {
+          console.log(this.username)
+          const cats = await CatService.getCats();
+          console.log(cats)
+          if (!cats || Object.keys(cats).length === 0) {
+            alert("Please create a cat first to get started!");
+            console.log(cats.length)
+            this.$router.push('/dbtest');
+          } else {
+            this.$router.push('/main');
+          }
+        } catch (err) {
+          console.error(err);
+        }
       }
     },
     async getLogin() {
