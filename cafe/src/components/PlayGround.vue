@@ -1,5 +1,7 @@
 <script>
   import TalkService from '../services/TalkService';
+  import CatService from '../services/CatService';
+  import SpotService from '../services/SpotService';
   import StatBoard from './StatBoard.vue';
   import Date from './Date.vue'
 
@@ -15,6 +17,7 @@
         catTalk: "",
         question: "",
         show_text_box: "none",
+        imageSrc: '',
       };
     },
     mounted() {
@@ -41,6 +44,14 @@
             statBoard.takeShower();
             break;
         }
+      },
+      //call Cat Service to get this cats image
+      async mounted() {
+        const user = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
+        const cat = await CatService.getCat(user);
+        const img = await CatService.getCatImage(cat.name);
+        console.log(img.url)
+        this.imageSrc = img.url;
       },
       async talk() {
         this.catTalk = await TalkService.getTalk(this.question)
@@ -142,7 +153,7 @@
           this.show_text_box = "block"
         }
         console.log(this.show_text_box)
-      }
+      },
     },
   };
 </script>
@@ -169,6 +180,9 @@
           <div class="response-box" @click="doNotMove($event)" :style="{ display: show_text_box}" >
               <p>{{ catTalk }}</p>
           </div>
+        </div>
+        <div>
+          <img :src="imageSrc" class="catdate">
         </div>
     </div>
     <div>
@@ -390,5 +404,12 @@
       position: absolute;
       top: 8.8%;
       left: 44%;
+    }
+    .catdate {
+      position: absolute;
+      width: 10vw;
+      height: 10vh;
+      top: 6vh;
+      left: 2vw;
     }
 </style>
