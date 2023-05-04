@@ -25,6 +25,7 @@
             </tr>
         </tbody>
         </table>
+        <router-link to="/main" class="back">Time to play with your cat!</router-link>
     </div>
 </template>
 
@@ -134,5 +135,16 @@
     .cat-table td {
         border-bottom: 1px solid #ddd;
         background-color: white;
+    }
+    .back {
+        display: inline-block;
+        padding: 5px 10px;
+        font-size: 20px;
+        border-radius: 500px;
+        background-color: lightgreen;
+        border: 1px solid transparent;
+        cursor: pointer;
+        margin-right: 5vw;
+        margin-top: 3vh;
     }
 </style>

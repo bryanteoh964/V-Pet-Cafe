@@ -20,16 +20,13 @@ export default {
       if (this.logged) {
         this.username = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
         try {
-          console.log(this.username)
           const cats = await CatService.getCats();
-          console.log(cats)
           if (!cats || Object.keys(cats).length === 0) {
+            setTimeout(() => {
             alert("Please create a cat first to get started!");
-            console.log(cats.length)
             this.$router.push('/dbtest');
-          } else {
-            this.$router.push('/main');
-          }
+            }, 2000);
+          } 
         } catch (err) {
           console.error(err);
         }
