@@ -30,6 +30,30 @@ class CatService {
         return axios.post(`${apiUrl}upCat/${queryParams}`)
     }
 
+    static updateCatStat(own, stat) {
+        axios({
+            method: 'post',
+            url: `${apiUrl}stat/`,
+            headers: {},
+            data: {
+                owner: own,
+                stats: stat
+            }
+        })
+    }
+
+    static getCatStat(owner) {
+        return new Promise(async (resolve, reject) => {
+            try {  
+                const res = await axios.get(`${apiUrl}getStat/${owner}`);
+                const data = res.data;
+                resolve(data)
+            } catch (err) {
+                reject(err);
+            }
+        })
+    }
+
     static getCat(owner) {
         return new Promise(async (resolve, reject) => {
             try {  
@@ -41,6 +65,7 @@ class CatService {
             }
         })
     }
+
     static async getCatImage(cat) {
         return new Promise(async (resolve, reject) => {
         try {

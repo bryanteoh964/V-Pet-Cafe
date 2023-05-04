@@ -1,4 +1,7 @@
 <script>
+import CatService from '../services/CatService';
+import SpotService from '../services/SpotService';
+
 const MAX_STAT_VALUE = 1000;
 const MIN_STAT_VALUE = 0;
 const PASSIVE_STAT_CHANGE = 5;
@@ -11,7 +14,15 @@ export default {
             cleanliness: MAX_STAT_VALUE,
         };
     },
+    mounted() {
+        // this.getStats();
+        console.log(this.happiness)
+    },
+    beforeUnmount() {
+        this.postStats()
+    },
     created() {
+        this.getStats();
         // Start a timer to decrease stats every second AND check bounds
         setInterval(() => {
             if (this.happiness > MIN_STAT_VALUE) {
@@ -35,6 +46,18 @@ export default {
         }, 1000);
     },
     methods: {
+        async getStats() {
+            const user = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
+            const stats = await CatService.getCatStat(user);
+            this.happiness = stats.happy;
+            this.hunger = stats.full;
+            this.cleanliness = stats.awake;
+        },
+        async postStats() {
+            const stats = {happy: this.happiness, full: this.hunger, awake: this.cleanliness};
+            const user = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
+            await CatService.updateCatStat(user, stats);
+        },
         increaseHappiness() {
             this.changeStat("happiness", 50);
         },

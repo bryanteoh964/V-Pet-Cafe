@@ -63,6 +63,12 @@
 </script>
 
 <style>
+    .createCat h1 {
+        text-shadow: -1px 1px 0 #000,
+                          1px 1px 0 #000,
+                         1px -1px 0 #000,
+                        -1px -1px 0 #000;   
+    }
     .background3 {
         background-image: url('../assets/catStore.png');
         background-size: cover;
