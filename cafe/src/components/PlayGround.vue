@@ -1,5 +1,7 @@
 <script>
   import TalkService from '../services/TalkService';
+  import CatService from '../services/CatService';
+  import SpotService from '../services/SpotService';
   import StatBoard from './StatBoard.vue';
   import Date from './Date.vue'
 
@@ -15,6 +17,7 @@
         catTalk: "",
         question: "",
         show_text_box: "none",
+        imageSrc: '',
       };
     },
     mounted() {
@@ -41,6 +44,14 @@
             statBoard.takeShower();
             break;
         }
+      },
+      //call Cat Service to get this cats image
+      async mounted() {
+        const user = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
+        const cat = await CatService.getCat(user);
+        const img = await CatService.getCatImage(cat.name);
+        console.log(img.url)
+        this.imageSrc = img.url;
       },
       async talk() {
         this.catTalk = await TalkService.getTalk(this.question)
@@ -142,13 +153,14 @@
           this.show_text_box = "block"
         }
         console.log(this.show_text_box)
-      }
+      },
     },
   };
 </script>
 
 <template>
   <div class="background">
+    <iframe class="player" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0iyfXzKOJHKgUvS3G8Ayrj?utm_source=generator" width="30%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     <div class="stat-display" @click="doNotMove($event); changeTextBox()">
         <StatBoard ref="statBoardRef"></StatBoard>
     </div>
@@ -168,6 +180,9 @@
           <div class="response-box" @click="doNotMove($event)" :style="{ display: show_text_box}" >
               <p>{{ catTalk }}</p>
           </div>
+        </div>
+        <div>
+          <img :src="imageSrc" class="catdate">
         </div>
     </div>
     <div>
@@ -383,5 +398,18 @@
         position: absolute;
         top: 0;
         left: 0;
+    }
+
+    .player {
+      position: absolute;
+      top: 8.8%;
+      left: 44%;
+    }
+    .catdate {
+      position: absolute;
+      width: 10vw;
+      height: 10vh;
+      top: 6vh;
+      left: 2vw;
     }
 </style>
