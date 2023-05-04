@@ -14,10 +14,6 @@ export default {
             cleanliness: MAX_STAT_VALUE,
         };
     },
-    mounted() {
-        // this.getStats();
-        console.log(this.happiness)
-    },
     beforeUnmount() {
         this.postStats()
     },
