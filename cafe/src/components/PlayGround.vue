@@ -168,6 +168,16 @@
         <input class="input" v-model="question" placeholder="Meow, let's chat!">
         <button class="submit" v-on:click="talk">Talk</button>
         <button class="show" @click="changeTextBox()">Show</button>
+        <div class="dropup">
+          <div class="dropup-content">
+            <a>Category 1</a>
+            <a>Category 2</a>
+            <a>Category 3</a>
+            <a>Category 4</a>
+            <a>Category 5</a>
+          </div>
+          <button class="dropbtn show">Get Quote</button>
+        </div>
         <router-link class="date" to="/date">Find your Purrmate</router-link>
     </div>
     <div class="playground">
@@ -344,7 +354,7 @@
       width: auto;
       height: auto;
       top: 86vh;
-      left: 18vw;
+      left: 16vw;
       border-radius: 10px;
       font-family: Avenir;
       font-size: 14px;
@@ -398,6 +408,46 @@
         position: absolute;
         top: 0;
         left: 0;
+    }
+
+    .dropbtn {
+      background-color: #3498DB;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+    }
+
+    .dropup {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropup-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 160px;
+      bottom: 50px;
+      z-index: 1;
+    }
+
+    .dropup-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      cursor: pointer;
+    }
+
+    .dropup-content a:hover {background-color: #ccc}
+
+    .dropup:hover .dropup-content {
+      display: block;
+    }
+
+    .dropup:hover .dropbtn {
+      background-color: #2980B9;
     }
 
     .player {
