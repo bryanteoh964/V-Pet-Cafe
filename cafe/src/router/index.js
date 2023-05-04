@@ -6,6 +6,7 @@ import CallBack from '../components/CallBack.vue'
 import DatabaseTest from '../components/DatabaseTest.vue'
 import SpotTest from '../components/SpotTest.vue'
 import Date from '../components/Date.vue'
+import Loader from '../components/CatLoader.vue'
 
 const routes = [
     {
@@ -35,7 +36,11 @@ const routes = [
     {
         path: '/date',
         component: Date
-    }
+    },
+    {
+        path: '/loader',
+        component: Loader
+    },
 ]
 
 const router = createRouter({
