@@ -1,7 +1,7 @@
-const express = require('express')
-const router = express.Router()
-const jsonParser = require('body-parser').json()
-const Cat = require("../models/cat")
+const express = require('express');
+const router = express.Router();
+const jsonParser = require('body-parser').json();
+const Cat = require("../models/cat");
 
 router.post("/create", jsonParser, async (req, res) => {
     const gato = new Cat(req.body);

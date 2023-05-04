@@ -1,5 +1,6 @@
 <template>
     <div>
+        <button v-on:click="test">Find</button>
         <button v-on:click="logOut">Out</button>
         <div class="spotify-user">
             <label for="spotify-user">Find Spotify user</label><br>
@@ -17,6 +18,7 @@
 
 <script>
     import SpotService from '../services/SpotService';
+    import TalkService from '../services/TalkService';
 
     export default {
         name: 'SpotAPITesting',
@@ -29,6 +31,10 @@
             }
         },
         methods: {
+            async test() {
+                const t = await TalkService.getTalk('happiness');
+                console.log(t)
+            },
             async findUser() {
                 this.userRes = await SpotService.getUser(this.user, localStorage.getItem('authCode'))
                 if(this.userRes.images.length > 0) {

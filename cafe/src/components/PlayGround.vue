@@ -12,6 +12,7 @@
     },
     data() {
       return {
+        type_list: ['Art','Computers','Dating','Dreams','Happiness','Funny','Inspirational'],
         position: { x: 300, y: 300},
         prev_position: { x: 300, y: 300},
         catTalk: "",
@@ -54,7 +55,15 @@
         this.imageSrc = img.url;
       },
       async talk() {
-        this.catTalk = await TalkService.getTalk(this.question)
+        if(this.question) {
+          this.catTalk = "Twinking..."
+          this.catTalk = await TalkService.getTalk(this.question)
+        }
+      },
+      async quote(type) {
+        this.catTalk = "Twinking..."
+        const q = await TalkService.getQuote(type.toLowerCase())
+        this.catTalk = q.quote + " From my fur-friend " + q.author + ". Meow!"
       },
       handleResize(event) {
         const width = event.currentTarget.innerWidth;
@@ -166,15 +175,11 @@
     </div>
     <div class="text-box" @click="doNotMove($event)">
         <input class="input" v-model="question" placeholder="Meow, let's chat!">
-        <button class="submit" v-on:click="talk">Talk</button>
         <button class="show" @click="changeTextBox()">Show</button>
+        <button class="submit" v-on:click="talk">Talk</button>
         <div class="dropup">
           <div class="dropup-content">
-            <a>Category 1</a>
-            <a>Category 2</a>
-            <a>Category 3</a>
-            <a>Category 4</a>
-            <a>Category 5</a>
+            <a v-for="item in type_list" v-on:click='quote(item)'> {{ item }}</a>
           </div>
           <button class="dropbtn show">Get Quote</button>
         </div>
@@ -430,6 +435,7 @@
       min-width: 160px;
       bottom: 50px;
       z-index: 1;
+      border-radius: 5px;
     }
 
     .dropup-content a {
