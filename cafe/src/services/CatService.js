@@ -22,37 +22,54 @@ class CatService {
         return axios.delete(`${apiUrl}delete/`)
     }
 
-    static updateCat(cat, img) {
-        const queryParams = new URLSearchParams({
-            catId: cat,
-            catImg: img
-        });
-        return axios.post(`${apiUrl}upCat/${queryParams}`)
-    }
-    static updateCatName(owner, catName) {
-        const queryParams = new URLSearchParams({
-            userId: owner,
-            catId: catName
-        });
-        return axios.post(`${apiUrl}upCatName/${queryParams}`)
+    static updateCat(auth, img) {
+        axios({
+            method: 'post',
+            url: `${apiUrl}upCat/`,
+            headers: {
+                'Authorization': `${auth}`
+            },
+            data: {
+                image: img
+            }
+        })
     }
 
-    static updateCatStat(own, stat) {
+    static updateCatName(auth, catName) {
+        axios({
+            method: 'post',
+            url: `${apiUrl}upCatName/`,
+            headers: {
+                'Authorization': `${auth}`
+            },
+            data: {
+                newName: catName
+            }
+        })
+    }
+
+    static updateCatStat(auth, stat) {
         axios({
             method: 'post',
             url: `${apiUrl}stat/`,
-            headers: {},
+            headers: {
+                'Authorization': `${auth}`
+            },
             data: {
-                owner: own,
                 stats: stat
             }
         })
     }
 
-    static getCatStat(owner) {
+    static getCatStat(auth) {
         return new Promise(async (resolve, reject) => {
             try {  
-                const res = await axios.get(`${apiUrl}getStat/${owner}`);
+                const config = {
+                    headers: {
+                        'Authorization': `${auth}`
+                    }
+                }
+                const res = await axios.get(`${apiUrl}getStat/`, config);
                 const data = res.data;
                 resolve(data)
             } catch (err) {
@@ -61,10 +78,15 @@ class CatService {
         })
     }
 
-    static getCat(owner) {
+    static getCat(auth) {
         return new Promise(async (resolve, reject) => {
             try {  
-                const res = await axios.get(`${apiUrl}getCat/${owner}`);
+                const config = {
+                    headers: {
+                        'Authorization': `${auth}`
+                    }
+                }
+                const res = await axios.get(`${apiUrl}getCat/`, config);
                 const data = res.data;
                 resolve(data)
             } catch (err) {
@@ -73,10 +95,15 @@ class CatService {
         })
     }
 
-    static async getCatImage(owner) {
+    static async getCatImage(auth) {
         return new Promise(async (resolve, reject) => {
         try {
-            const res = await axios.get(`${apiUrl}getCatImage/${owner}`);
+            const config = {
+                headers: {
+                    'Authorization': `${auth}`
+                }
+            }
+            const res = await axios.get(`${apiUrl}getCatImage/`,  config);
             const data = res.data;
             resolve(data);
         } catch (err) {

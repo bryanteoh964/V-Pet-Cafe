@@ -128,7 +128,6 @@ router.get('/logout', checkAuthorization, async (req, res) => {
     try {
       await User.findOneAndUpdate({spotifyAccessTokenHash: userJWTPayload.spotifyAccessTokenHash},
         {spotifyAccessToken: null})
-      console.log('done')
       res.send('done')
     } catch (err) {
       console.log(err)

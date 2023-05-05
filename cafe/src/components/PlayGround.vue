@@ -49,12 +49,7 @@
       },
       //call Cat Service to get this cats image
       async displayImage() {
-        const user = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
-        console.log(user)
-        const cat = await CatService.getCat(user);
-        console.log(cat)
-        const img = await CatService.getCatImage(cat.name);
-        console.log(img)
+        const img = await CatService.getCatImage(localStorage.getItem('authCode'));
         this.imageSrc = img;
       },
       async talk() {

@@ -32,7 +32,7 @@
             </h1>
             </div>
             <input type="text" v-model="newName" placeholder="Cat's New name" class="name"><br>
-            <button class="back" v-on:click="renameCat(newName)">Rename your fur-friend</button>
+            <button class="back" v-on:click="renameCat()">Rename your fur-friend</button>
         </div>
     </div>
 </template>
@@ -47,7 +47,8 @@
             return {
                 cats: [],
                 error: '',
-                name: ''
+                name: '',
+                newName: '',
             }
         },
         async created() {
@@ -59,6 +60,15 @@
         }, 
         methods: {
             async createCat() {
+                const curCat = await CatService.getCat(localStorage.getItem('authCode'));
+                
+                console.log(curCat);
+                
+                if (curCat) {
+                    this.redirect();
+                    return
+                }
+
                 const owner = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
                 const cat = {name: this.name, image: '', user: owner, stats: {happy: 1000, full: 1000, awake: 1000}};
                 console.log(cat);
@@ -72,15 +82,10 @@
                 this.cats = await CatService.getCats();
                 this.redirect();
             },
-            async renameCat(newName) {
-                const owner = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
-                if (!newName) return;
-                const catToRename = await CatService.getCat(owner);
+            async renameCat() {
+                const catToRename = await CatService.getCat(localStorage.getItem('authCode'));
                 if (!catToRename) return;
-                catToRename.name = newName;
-                this.name = newName;
-                await CatService.updateCatName(owner, newName);
-                console.log(catToRename)
+                await CatService.updateCatName(localStorage.getItem('authCode'), this.newName);
                 this.cats = await CatService.getCats();
             },
             redirect() {

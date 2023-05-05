@@ -1,6 +1,5 @@
 <script>
 import CatService from '../services/CatService';
-import SpotService from '../services/SpotService';
 
 const MAX_STAT_VALUE = 1000;
 const MIN_STAT_VALUE = 0;
@@ -43,16 +42,14 @@ export default {
     },
     methods: {
         async getStats() {
-            const user = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
-            const stats = await CatService.getCatStat(user);
+            const stats = await CatService.getCatStat(localStorage.getItem('authCode'));
             this.happiness = stats.happy;
             this.hunger = stats.full;
             this.cleanliness = stats.awake;
         },
         async postStats() {
             const stats = {happy: this.happiness, full: this.hunger, awake: this.cleanliness};
-            const user = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
-            await CatService.updateCatStat(user, stats);
+            CatService.updateCatStat(localStorage.getItem('authCode'), stats);
         },
         increaseHappiness() {
             this.changeStat("happiness", 50);

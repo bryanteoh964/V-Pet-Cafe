@@ -23,7 +23,6 @@ const checkAuthorization = function (req, res, next) {
                         res.status(401).send('User not currently logged in')
                     }
                     else {
-                        console.log('Valid user:', user.name)
                         req.user = user
                         next()
                     }
