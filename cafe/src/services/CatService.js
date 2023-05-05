@@ -29,10 +29,10 @@ class CatService {
         });
         return axios.post(`${apiUrl}upCat/${queryParams}`)
     }
-    static updateCatName(owner, name) {
+    static updateCatName(owner, catName) {
         const queryParams = new URLSearchParams({
             userId: owner,
-            catName: name
+            catId: catName
         });
         return axios.post(`${apiUrl}upCatName/${queryParams}`)
     }
@@ -76,7 +76,7 @@ class CatService {
     static async getCatImage(owner) {
         return new Promise(async (resolve, reject) => {
         try {
-            const res = await axios.get(`${apiUrl}getCatImage/${cat}`);
+            const res = await axios.get(`${apiUrl}getCatImage/${owner}`);
             const data = res.data;
             resolve(data);
         } catch (err) {

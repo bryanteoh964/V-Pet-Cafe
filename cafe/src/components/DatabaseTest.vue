@@ -8,6 +8,7 @@
             </div>
             <input type="name" v-model="name" placeholder="Cat's name" class="name"><br>
             <button class="make" v-on:click="createCat">Welcome your cat to your family </button>
+            <button class="delete" v-on:click="deleteCat">Meow, ciao mis gatos</button>
         </div>
         <p class="error" v-if="error">{{ error }}</p>
         <table class="cat-table">
@@ -24,12 +25,14 @@
             </tr>
         </tbody>
         </table>
-        <div>
-            <h1 class="createCat">
+        <div clas="create-cat">
+            <div class="createCat">
+            <h1>
                 Rename your cat!
             </h1>
-            <input type="name" v-model="name2" placeholder="Cat's New name" class="name"><br>
-            <button class="back" v-on:click="renameCat(); redirect()">Rename your fur-friend</button>
+            </div>
+            <input type="text" v-model="newName" placeholder="Cat's New name" class="name"><br>
+            <button class="back" v-on:click="renameCat(newName)">Rename your fur-friend</button>
         </div>
     </div>
 </template>
@@ -57,14 +60,17 @@
         methods: {
             async createCat() {
                 const owner = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
-                const cat = {name: this.name, image: '', user: owner, stats: {happy: 0, full: 0, awake: 0}};
+                const cat = {name: this.name, image: '', user: owner, stats: {happy: 1000, full: 1000, awake: 1000}};
                 console.log(cat);
                 await CatService.addCat(cat);
                 this.cats = await CatService.getCats();
+                //reroute back to /main after 2 seconds
+                this.redirect();
             },
             async deleteCat() {
                 await CatService.deleteCats();
                 this.cats = await CatService.getCats();
+                this.redirect();
             },
             async renameCat(newName) {
                 const owner = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
@@ -72,7 +78,9 @@
                 const catToRename = await CatService.getCat(owner);
                 if (!catToRename) return;
                 catToRename.name = newName;
+                this.name = newName;
                 await CatService.updateCatName(owner, newName);
+                console.log(catToRename)
                 this.cats = await CatService.getCats();
             },
             redirect() {
