@@ -88,6 +88,7 @@ export default {
             </div>
             <div>
                 <router-link to="/main" class="button playground-button" v-if="logged">Playground</router-link>
+                <router-link to="/dbtest" class="button playground-button" v-if="logged">Change Cat</router-link>
                 <button 
                   class="button activity-links log-button" 
                   v-if="!logged"
