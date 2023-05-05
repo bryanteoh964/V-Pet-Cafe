@@ -29,6 +29,13 @@ class CatService {
         });
         return axios.post(`${apiUrl}upCat/${queryParams}`)
     }
+    static updateCatName(owner, name) {
+        const queryParams = new URLSearchParams({
+            userId: owner,
+            catName: name
+        });
+        return axios.post(`${apiUrl}upCatName/${queryParams}`)
+    }
 
     static updateCatStat(own, stat) {
         axios({
@@ -66,12 +73,12 @@ class CatService {
         })
     }
 
-    static async getCatImage(cat) {
+    static async getCatImage(owner) {
         return new Promise(async (resolve, reject) => {
         try {
             const res = await axios.get(`${apiUrl}getCatImage/${cat}`);
-            const image = res.data.image;
-            resolve(image);
+            const data = res.data;
+            resolve(data);
         } catch (err) {
             reject(err);
         }
@@ -79,18 +86,3 @@ class CatService {
 }}
 
 export default CatService;
-
-
-
-//get cat image for this specific cat
- //   static getCatImage(cat) {
-   //     return new Promise(async (resolve, reject) => {
-     //       try {
-       //         const res = await axios.get(`${apiUrl}getCatImage/${cat}`);
-         //       const data = res.data;
-           //     resolve(data)
-//            } catch (err) {
-  //              reject(err);
-    //        }
-//        })
-  //  }

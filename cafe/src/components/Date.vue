@@ -46,7 +46,6 @@
             const user = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
             const cat = await CatService.getCat(user);
             await CatService.updateCat(cat.name, this.image);
-            console.log(this.image)
             //go to playground
             this.$router.push('/main');
         },

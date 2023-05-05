@@ -25,6 +25,7 @@
       document.addEventListener('keydown', this.handleKeyDown);
       document.addEventListener('click', this.handleClick);
       window.addEventListener('resize', this.handleResize);
+      this.displayImage();
     },
     beforeUnmount() {
       document.removeEventListener('keydown', this.handleKeyDown);
@@ -47,12 +48,14 @@
         }
       },
       //call Cat Service to get this cats image
-      async mounted() {
+      async displayImage() {
         const user = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
+        console.log(user)
         const cat = await CatService.getCat(user);
+        console.log(cat)
         const img = await CatService.getCatImage(cat.name);
-        console.log(img.url)
-        this.imageSrc = img.url;
+        console.log(img)
+        this.imageSrc = img;
       },
       async talk() {
         if(this.question) {
@@ -197,8 +200,8 @@
           </div>
         </div>
         <div>
-          <img :src="imageSrc" class="catdate">
-        </div>
+          <img class ="catdate" :src='imageSrc' />
+       </div>
     </div>
     <div>
         <img src="..\assets\play.png" class="playsign sign" id="pet-cat"  @click="doNotMove($event); callStatBoard('increaseHappiness')">
@@ -463,9 +466,9 @@
     }
     .catdate {
       position: absolute;
-      width: 10vw;
-      height: 10vh;
-      top: 6vh;
-      left: 2vw;
+      top: 66vh;
+      left: 82vw;
+      width: 10%;
+      height: 10%;
     }
 </style>

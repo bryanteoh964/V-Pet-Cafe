@@ -8,7 +8,6 @@
             </div>
             <input type="name" v-model="name" placeholder="Cat's name" class="name"><br>
             <button class="make" v-on:click="createCat">Welcome your cat to your family </button>
-            <button class="delete" v-on:click="deleteCat">Meow, ciao, mis gatos</button>
         </div>
         <p class="error" v-if="error">{{ error }}</p>
         <table class="cat-table">
@@ -25,12 +24,19 @@
             </tr>
         </tbody>
         </table>
-        <router-link to="/main" class="back">Time to play with your cat!</router-link>
+        <div>
+            <h1 class="createCat">
+                Rename your cat!
+            </h1>
+            <input type="name" v-model="name2" placeholder="Cat's New name" class="name"><br>
+            <button class="back" v-on:click="renameCat(); redirect()">Rename your fur-friend</button>
+        </div>
     </div>
 </template>
 
 <script>
     import CatService from '../services/CatService';
+    import SpotService from '../services/SpotService';
 
     export default {
         name: 'DatabaseTesting',
@@ -47,16 +53,32 @@
             } catch(err) {
                 this.error = err.message;
             }
-        },
+        }, 
         methods: {
             async createCat() {
-                const cat = {name: this.name, stats: {happy: 0, full: 0, awake: 0}};
+                const owner = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
+                const cat = {name: this.name, image: '', user: owner, stats: {happy: 0, full: 0, awake: 0}};
+                console.log(cat);
                 await CatService.addCat(cat);
                 this.cats = await CatService.getCats();
             },
             async deleteCat() {
                 await CatService.deleteCats();
                 this.cats = await CatService.getCats();
+            },
+            async renameCat(newName) {
+                const owner = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
+                if (!newName) return;
+                const catToRename = await CatService.getCat(owner);
+                if (!catToRename) return;
+                catToRename.name = newName;
+                await CatService.updateCatName(owner, newName);
+                this.cats = await CatService.getCats();
+            },
+            redirect() {
+                setTimeout(() => {
+                    this.$router.push('/main');
+                }, 400);
             }
         }
     }
@@ -82,7 +104,7 @@
         z-index: -1;
     }
     .createCat {
-        font-size: 2.8vw;
+        font-size: 2vw;
         text-align: left;
         color: rgb(255, 255, 255);
         user-select: none;
@@ -95,6 +117,7 @@
         color: rgb(0, 0, 0);
         border-radius: 500px;
         border: 1px solid transparent;
+        margin-top: 1vh;
     }
     .make {
         display: inline-block;
@@ -105,6 +128,7 @@
         border: 1px solid transparent;
         cursor: pointer;
         margin-right: 0.5vw;
+        margin-top: 1vh;
     }
     .make:hover {
       background-image: linear-gradient(rgb(0 0 0/3%) 0 0);
@@ -119,6 +143,7 @@
         border: 1px solid transparent;
         cursor: pointer;
         margin-right: 0.5vw;
+        margin-top: 1vh;
     }
     .delete:hover {
         background-image: linear-gradient(rgb(0 0 0/3%) 0 0);
@@ -151,6 +176,6 @@
         border: 1px solid transparent;
         cursor: pointer;
         margin-right: 5vw;
-        margin-top: 3vh;
+        margin-top: 1vh;
     }
 </style>
