@@ -3,7 +3,7 @@ import Start from '../components/StartPage.vue'
 import Playground from '../components/PlayGround.vue'
 import LoginPage from '../components/LoginPage.vue'
 import CallBack from '../components/CallBack.vue'
-import DatabaseTest from '../components/DatabaseTest.vue'
+import CatCenter from '../components/CatCenter.vue'
 import SpotTest from '../components/SpotTest.vue'
 import Date from '../components/Date.vue'
 import Loader from '../components/CatLoader.vue'
@@ -30,8 +30,8 @@ const routes = [
         component: SpotTest
     },
     {
-        path: '/dbtest',
-        component: DatabaseTest
+        path: '/catcenter',
+        component: CatCenter
     },
     {
         path: '/date',

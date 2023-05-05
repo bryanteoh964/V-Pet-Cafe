@@ -7,12 +7,18 @@ export default {
       username: '',
       loginURL: '',
       error: '',
-      logged: false
+      logged: false,
+      cat_exists: false,
     }
   },
-  mounted() {
+  async mounted(){
     this.getLogin()
     this.checkLogin()
+    if(this.logged) {
+      if (await CatService.getCat(localStorage.getItem('authCode'))) {
+        this.cat_exists = true
+      }
+    }
   },
   methods: {
     async checkLogin() {
@@ -21,10 +27,10 @@ export default {
         this.username = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
         try {
           const cats = await CatService.getCats();
-          if (!cats || Object.keys(cats).length === 0) {
+          if (!this.cat_exists) {
             setTimeout(() => {
             alert("Please create a cat first to get started!");
-            this.$router.push('/dbtest');
+            this.$router.push('/catcenter');
             }, 2000);
           } 
         } catch (err) {
@@ -87,8 +93,8 @@ export default {
                 </div>
             </div>
             <div>
-                <router-link to="/main" class="button playground-button" v-if="logged">Playground</router-link>
-                <router-link to="/dbtest" class="button playground-button" v-if="logged">Change Cat</router-link>
+                <router-link to="/main" class="button playground-button" v-if="logged && cat_exists">Playground</router-link>
+                <router-link to="/catcenter" class="button playground-button" v-if="logged">Adopt Cat</router-link>
                 <button 
                   class="button activity-links log-button" 
                   v-if="!logged"

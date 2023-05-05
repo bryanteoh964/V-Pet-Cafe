@@ -1,38 +1,48 @@
 <template>
     <div class="background3">
-        <div class="create-cat">
-            <div class = "createCat">
-            <h1>
-                Adopt a cat!
-            </h1>
-            </div>
-            <input type="name" v-model="name" placeholder="Cat's name" class="name"><br>
-            <button class="make" v-on:click="createCat">Welcome your cat to your family </button>
-            <button class="delete" v-on:click="deleteCat">Meow, ciao mis gatos</button>
+        <div class="CC-Left">
+                <div class="create-cat">
+                        <div class = "createCat">
+                        <h1>
+                            Adopt a cat!
+                        </h1>
+                        </div>
+                        <input type="name" v-model="name" placeholder="Cat's name" class="name"><br>
+                        <button class="make" v-on:click="createCat">Welcome your cat to your family </button>
+                        <!-- <button class="delete" v-on:click="deleteCat">Meow, ciao mis gatos</button> -->
+                </div>
+                <p class="error" v-if="error">{{ error }}</p>
+                <div clas="create-cat">
+                    <div class="createCat">
+                        <h1>
+                            Rename your cat!
+                        </h1>
+                    </div>
+                    <input type="text" v-model="newName" placeholder="Cat's New name" class="name"><br>
+                    <button class="back" v-on:click="renameCat()">Rename your fur-friend</button>
+                </div>
         </div>
-        <p class="error" v-if="error">{{ error }}</p>
-        <table class="cat-table">
-        <thead>
-            <tr>
-            <th>Cat name</th>
-            <th>Cat statistics</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(cat, i) in cats" :key="i">
-            <td>{{ cat.name }}</td>
-            <td>{{ cat.stats }}</td>
-            </tr>
-        </tbody>
-        </table>
-        <div clas="create-cat">
-            <div class="createCat">
-            <h1>
-                Rename your cat!
-            </h1>
-            </div>
-            <input type="text" v-model="newName" placeholder="Cat's New name" class="name"><br>
-            <button class="back" v-on:click="renameCat()">Rename your fur-friend</button>
+        <div class="CC-Right">
+                <table class="cat-table">
+                        <thead>
+                                <tr>
+                                    <th>Owner</th>
+                                    <th>Cat name</th>
+                                    <th>Happiness</th>
+                                    <th>Full-ness</th>
+                                    <th>Cleanliness</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr v-for="(cat, i) in cats" :key="i">
+                                    <td>{{ cat.user }}</td>
+                                    <td>{{ cat.name }}</td>
+                                    <td>{{ cat.stats.happy }}</td>
+                                    <td>{{ cat.stats.full }}</td>
+                                    <td>{{ cat.stats.awake }}</td>
+                                </tr>
+                        </tbody>
+                </table>
         </div>
     </div>
 </template>
@@ -62,10 +72,7 @@
             async createCat() {
                 const curCat = await CatService.getCat(localStorage.getItem('authCode'));
                 
-                console.log(curCat);
-                
                 if (curCat) {
-                    this.redirect();
                     return
                 }
 
@@ -74,8 +81,6 @@
                 console.log(cat);
                 await CatService.addCat(cat);
                 this.cats = await CatService.getCats();
-                //reroute back to /main after 2 seconds
-                this.redirect();
             },
             async deleteCat() {
                 await CatService.deleteCats();
@@ -98,6 +103,14 @@
 </script>
 
 <style>
+    .CC-Left {
+        position: relative;
+        width: 50vw;
+    }
+    .CC-Right {
+        position: relative;
+        width: 50vw;
+    }
     .createCat h1 {
         text-shadow: -1px 1px 0 #000,
                           1px 1px 0 #000,
@@ -115,6 +128,9 @@
         top: 0;
         left: 0;
         z-index: -1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
     }
     .createCat {
         font-size: 2vw;
