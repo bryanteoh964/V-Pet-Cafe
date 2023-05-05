@@ -1,7 +1,7 @@
 <template>
     <div class="background3">
         <div class="CC-Left">
-                <div class="create-cat">
+                <div class="create-cat" v-if="!cat_exists">
                         <div class = "createCat">
                         <h1>
                             Adopt a cat!
@@ -9,10 +9,9 @@
                         </div>
                         <input type="name" v-model="name" placeholder="Cat's name" class="name"><br>
                         <button class="make" v-on:click="createCat">Welcome your cat to your family </button>
-                        <!-- <button class="delete" v-on:click="deleteCat">Meow, ciao mis gatos</button> -->
                 </div>
                 <p class="error" v-if="error">{{ error }}</p>
-                <div clas="create-cat">
+                <div class="create-cat" v-if="cat_exists">
                     <div class="createCat">
                         <h1>
                             Rename your cat!
@@ -20,6 +19,7 @@
                     </div>
                     <input type="text" v-model="newName" placeholder="Cat's New name" class="name"><br>
                     <button class="back" v-on:click="renameCat()">Rename your fur-friend</button>
+                    <!-- <button class="delete" v-on:click="deleteCat">Meow, ciao mis gatos</button> -->
                 </div>
         </div>
         <div class="CC-Right">
@@ -45,6 +45,9 @@
                 </table>
         </div>
     </div>
+    <div>
+        <router-link to="/" class="back-button button">{{'⇐ Go Back'}}</router-link>
+    </div>
 </template>
 
 <script>
@@ -59,6 +62,12 @@
                 error: '',
                 name: '',
                 newName: '',
+                cat_exists: false
+            }
+        },
+        async mounted() {
+            if (await CatService.getCat(localStorage.getItem('authCode'))) {
+                this.cat_exists = true
             }
         },
         async created() {
@@ -90,13 +99,9 @@
             async renameCat() {
                 const catToRename = await CatService.getCat(localStorage.getItem('authCode'));
                 if (!catToRename) return;
-                await CatService.updateCatName(localStorage.getItem('authCode'), this.newName);
+                CatService.updateCatName(localStorage.getItem('authCode'), this.newName);
+                await CatService.getCats()
                 this.cats = await CatService.getCats();
-            },
-            redirect() {
-                setTimeout(() => {
-                    this.$router.push('/main');
-                }, 400);
             }
         }
     }
@@ -106,6 +111,7 @@
     .CC-Left {
         position: relative;
         width: 50vw;
+        padding: 2vw;
     }
     .CC-Right {
         position: relative;

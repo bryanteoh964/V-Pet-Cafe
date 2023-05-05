@@ -11,6 +11,7 @@ export default {
             happiness: MAX_STAT_VALUE,
             hunger: MAX_STAT_VALUE,
             cleanliness: MAX_STAT_VALUE,
+            cat_name: ''
         };
     },
     beforeUnmount() {
@@ -43,6 +44,8 @@ export default {
     methods: {
         async getStats() {
             const stats = await CatService.getCatStat(localStorage.getItem('authCode'));
+            const cat = await CatService.getCat(localStorage.getItem('authCode'));
+            this.cat_name = cat.name;
             this.happiness = stats.happy;
             this.hunger = stats.full;
             this.cleanliness = stats.awake;
@@ -114,6 +117,7 @@ export default {
 <template>
     <div class="container">
         <div class="stats-board">
+            <h1>{{ cat_name }}</h1>
             <div class="portrait">
                 <img src="..\assets\cat-9161.png" class="cat-icon">
             </div>
@@ -166,11 +170,15 @@ export default {
     .stats-board {
         height: 30vh;
         width: 18vh;
-        padding: 2vw;
+        padding: 0.5vh 2vw 4vh 2vw;
         background-color: #f0f0f0;
         border: 1px solid #5c5c5c;
         border-radius: 10px;
         overflow: hidden;
+    }
+    .stats-board h1 {
+        margin: 0 0 1vh 0;
+        font-size: 3vh;
     }
     .text {
         height: 0.5vh;

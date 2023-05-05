@@ -9,16 +9,12 @@ export default {
       error: '',
       logged: false,
       cat_exists: false,
+      cat_name: ''
     }
   },
   async mounted(){
     this.getLogin()
     this.checkLogin()
-    if(this.logged) {
-      if (await CatService.getCat(localStorage.getItem('authCode'))) {
-        this.cat_exists = true
-      }
-    }
   },
   methods: {
     async checkLogin() {
@@ -26,7 +22,11 @@ export default {
       if (this.logged) {
         this.username = await SpotService.getCurrentUser(localStorage.getItem('authCode'));
         try {
-          const cats = await CatService.getCats();
+          const cat = await CatService.getCat(localStorage.getItem('authCode'));
+          if (cat) {
+            this.cat_name = cat.name
+            this.cat_exists = true
+          }
           if (!this.cat_exists) {
             setTimeout(() => {
             alert("Please create a cat first to get started!");
@@ -87,7 +87,7 @@ export default {
         <div class="cat-card"></div>
         <div class="activity-links">
             <div>
-                <h1 class="cat-name">[Cat Name]</h1>
+                <h1 class="cat-name">{{ cat_name }}</h1>
                 <div class="cat-box">
                     <img src="..\assets\cat-9161.png" class="cat-profile">
                 </div>
