@@ -2,6 +2,9 @@
 
 Welcome to V-Pet Cafe! Our online interactive game-like simulator offers a relaxing experience where you can take care of your own personal pet cat. With V-Pet Cafe, you can feed your cat, play with it, and shower it to increase its stats. Our cat is powered by OpenAI’s Davinci Large Language Model API, making it smart and able to have conversations with you. You can also use our cat image API to find a date for your cat in the cafe playground. With OAuth user authentication using Spotify API, you can sign in to your unique account to access your personal cat and listen to your playlist. V-Pet Cafe is a stress reliever interactive gameplay website running on Vue, making it an enjoyable and entertaining way to unwind after a long day.
 
+## Demo
+https://drive.google.com/file/d/1jk7QANHFhuFa-U2yNRlQ7NmgRauFgPEG/view?usp=share_link
+
 ## Getting Started
 ### Prerequisites
 * npm
