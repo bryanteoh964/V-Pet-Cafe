@@ -14,7 +14,7 @@ npm install npm@latest -g
    ```sh
    git clone https://github.com/bryanteoh964/V-Pet-Cafe
    ```
-2. Get a free API Key at [https://example.com](https://example.com), [https://example.com](https://example.com), [https://example.com](https://example.com)
+2. Get free API Keys at [OpenAI Davinci](https://platform.openai.com/docs/models), [API Ninja Quote API](https://api-ninjas.com/api/quotes), [POSTMAN The Cat API](https://documenter.getpostman.com/view/4016432/RWToRJCq)
 3. Generate MongoDB instance credentials
 4. Generate Spotify Developer credentials
 5. Enter your API keys (GPT_KEY, JWT_SECRET, DATE_KEY), MongoDB credentials (DB_USER, DB_PASS), and Spotify OAuth ids (CLIENT_ID, CLIENT_SECRET) into a local .env file
